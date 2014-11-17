@@ -76,8 +76,8 @@ class MainThread implements Runnable
 			try
 			{
 				Socket newPlayer = server.accept();
-				println("Jogador conectado. IP: "+Socket.getInetAddress().toString());
-				Player plr = new Player(socket);
+				System.out.println("Jogador conectado. IP: "+newPlayer.getInetAddress().toString());
+				Player plr = new Player(newPlayer);
 			}
 			catch(Exception e)
 			{
