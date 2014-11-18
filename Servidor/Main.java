@@ -19,7 +19,7 @@ public class Main
 		try
 		{
 			server = new ServerSocket(port, backlog, InetAddress.getByName(bindIp));
-			MainThread main_c = new MainThread(server, playerList);
+			MainThread main_c = new MainThread(server);
 			isRunning = true;
 			mainThread = new Thread(main_c);
 			mainThread.start();
@@ -28,11 +28,9 @@ public class Main
 		catch(Exception e)
 		{
 			System.out.println("ERRO!");
-			System.out.println("Mensagem: "+e.getMessage());
-			System.out.print("STACK: ");
-			e.printStackTrace();
+			Log.writeError("Erro ao iniciar servidor.", e);
 		}
-		while(line != "exit\n")
+		while(!line.contains("exit"))
 		{
 			try
 			{
@@ -42,32 +40,59 @@ public class Main
 						System.out.println("Jogadores conectados: "+playerList.size());
 					break;
 				}
-				line = System.console().readLine();
+				line = System.console().readLine();				
 			}
 			catch(Exception e)
 			{
-				System.out.println("ERRO!");
-				System.out.println("Mensagem: "+e.getMessage());
-				System.out.print("STACK: ");
-				e.printStackTrace();
-			}
-			
+				Log.writeError("Erro ao realizar comando.",e);			
+			}			
 		}
-		isRunning = false;
+		shutdown();
 	}
 	public static Boolean getIsRunning()
 	{
 		return isRunning;
 	}
+	public static void shutdown()
+	{
+		try
+		{
+			isRunning = false;
+			for(Player plr : playerList)
+			{
+				plr.disconnect();
+			}
+			try
+			{
+				mainThread.interrupt();
+			}	
+			catch(Exception f)
+			{
+			}
+			System.exit(0);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	public static void onPlayerDisconnect(Player plr)
+	{
+		playerList.remove(plr);
+		System.out.println("Jogador desconectado. IP: "+plr.getIp());
+	}
+	public static void onPlayerConnect(Player plr)
+	{
+		playerList.add(plr);
+		System.out.println("Jogador conectado. IP: "+plr.getIp());
+	}
 }
 class MainThread implements Runnable
 {
-	private ServerSocket server;
-	private ArrayList<Player> playerList;
-	public MainThread(ServerSocket server, ArrayList<Player> playerList)
+	private ServerSocket server;	
+	public MainThread(ServerSocket server)
 	{
-		this.server = server;
-		this.playerList = playerList;
+		this.server = server;		
 	}
 	public void run()
 	{
@@ -75,15 +100,14 @@ class MainThread implements Runnable
 		{
 			try
 			{
-				Socket newPlayer = server.accept();
-				System.out.println("Jogador conectado. IP: "+newPlayer.getInetAddress().toString());
+				Socket newPlayer = server.accept();				
 				Player plr = new Player(newPlayer);
+				Main.onPlayerConnect(plr);
+				plr.getThread().start();
 			}
 			catch(Exception e)
 			{
-				System.out.println("Erro na Thread Principal do servidor. Mensagem: "+e.getMessage());
-				System.out.print("STACK: ");
-				e.printStackTrace();
+				Log.writeError("Erro na Thread Principal do servidor.", e);				
 			}
 			
 		}
