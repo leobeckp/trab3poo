@@ -4,13 +4,12 @@
 *************************************************************************************************/
 package Items;
 
-public class ManaPotion extends Potion
+public class ManaPotion extends Potion implements java.io.Serializable
 {
 	public ManaPotion(String name, double price, int restorepts)
 	{
 		super(name,price,restorepts);				
-	}
-	
+	}	
 	@Override
 	public void use()
 	{

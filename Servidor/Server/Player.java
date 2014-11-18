@@ -1,3 +1,5 @@
+package Server;
+
 import java.net.*;
 import java.util.*;
 import java.io.*;
@@ -82,7 +84,7 @@ public class Player implements Runnable
 		{
 			Log.writeError("Erro ao receber dados.", e);
 		}
-		Main.onPlayerDisconnect(this);
+		Server.onPlayerDisconnect(this);
 		try
 		{
 			socket.close();

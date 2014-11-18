@@ -4,7 +4,7 @@
 *************************************************************************************************/
 package Items;
 
-public class Potion extends Item
+public class Potion extends Item implements java.io.Serializable
 {
 	private int restorepts;	
 
@@ -12,7 +12,7 @@ public class Potion extends Item
 	{
 		super(name,price,0,0);
 		this.restorepts = restorepts;			
-	}
+	}	
 	public Potion(Potion potion)
 	{
 		super(potion);
