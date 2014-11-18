@@ -4,6 +4,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.*;
+import java.util.Map.Entry;
 import java.nio.charset.Charset;
 
 public class Database<T>
@@ -11,6 +12,15 @@ public class Database<T>
 	private Map<Integer, T> data;
 	public int lastId = 0;	
 	private Class<T> persistentClass;
+	
+	//métodos static
+	public static Database<Account> accountsDb;
+	
+	public static void initDatabases()
+	{
+		accountsDb = new Database<Account>(Account.class);
+		accountsDb.loadDatabase();
+	}
 	
     public Database(Class<T> persistentClass) 
 	{
@@ -53,6 +63,32 @@ public class Database<T>
 		{
 			Log.writeError("Erro ao salvar dados da classe " + persistentClass.getName(), e);
 		}
+	}
+	public T getEntryByField(String field, Object search)
+	{
+		Field f = null;
+		try
+		{
+			f = persistentClass.getField(field);
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+		for(Entry<Integer,T> entry: data.entrySet())
+		{
+			try
+			{
+				if(f.get(entry.getValue()).equals(search))
+				{
+					return entry.getValue();
+				}
+			}
+			catch(Exception e)
+			{
+			}
+		}
+		return null;
 	}
 	public T getEntryById(int i)
 	{

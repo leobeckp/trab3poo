@@ -9,6 +9,7 @@ public class Main
 	{
 		String line = "";
 		Server.start();
+		Database.initDatabases();
 		while(!line.contains("exit"))
 		{
 			try

@@ -7,59 +7,54 @@ import java.io.*;
 public class Player implements Runnable
 {
 	private Socket socket;
-	private String username;
-	private String password;
-	private int teamId;
+	private Account account;
 	private Thread thread;
 	private String ip;
+	private PrintWriter out;
 	
 	public Player(Socket socket)
 	{
 		this.socket = socket;
 		this.ip = socket.getInetAddress().toString();
 		this.thread = new Thread(this);
+		try
+		{
+			out = new PrintWriter(socket.getOutputStream(), true);
+		}
+		catch(Exception e)
+		{
+		}
 	}
-	public String getUsername()
+	public Account getAccount()
 	{
-		return username;
+		return account;
 	}
 	public Socket getSocket()
 	{
 		return socket;
-	}
-	public String getPassword()
-	{
-		return password;
-	}
-	public int getTeamId()
-	{
-		return teamId;
-	}
+	}	
 	public Thread getThread()
 	{
 		return thread;
-	}
-	public void setUsername(String value)
-	{
-		username = value;
-	}
-	public void setPassword(String value)
-	{
-		password = value;
-	}
-	public void setTeamId(int value)
-	{
-		teamId = value;
-	}
+	}	
 	public String getIp()
 	{
 		return ip;
+	}
+	public void setAccount(Account value)
+	{
+		account = value;
+	}
+	public void sendData(String data)
+	{
+		out.println(data);
 	}
 	public void disconnect()
 	{
 		try
 		{
 			socket.close();
+			thread.interrupt();
 		}
 		catch(Exception e)
 		{
@@ -77,8 +72,16 @@ public class Player implements Runnable
 			while((read = input.read(buffer,0,1024)) > 0) 
 			{
 				data = new String(buffer, 0, read, "UTF-8");
-				Parsing.parseData(this, data);
+				for(String s : data.split("\n"))
+				{
+					Log.logPacket("RECV <<" + s);
+					Parsing.parseData(this, s);
+				}				
 			}			
+		}
+		catch(SocketException e)
+		{
+		
 		}
 		catch(Exception e)
 		{
