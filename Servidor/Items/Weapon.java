@@ -4,7 +4,7 @@
 *************************************************************************************************/
 package Items;
 
-public class Weapon extends Item
+public class Weapon extends Item implements java.io.Serializable
 {
 	protected int attackpts;
 	protected double range;	

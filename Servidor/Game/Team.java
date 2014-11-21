@@ -4,15 +4,16 @@
 *************************************************************************************************/
 package Game;
 import java.util.*;
+import Server.*;
 
-public class Team
+public class Team implements java.io.Serializable
 {
 	private String name;
 	private Color color;
 	private int win;
 	private int lose;
 	private int draw;
-	private ArrayList<GameCharacter> characters;
+	private ArrayList<Integer> characters;
 	public Team(String name, Color color)
 	{
 		this.name = name;
@@ -20,7 +21,7 @@ public class Team
 		this.win = 0;
 		this.lose = 0;
 		this.draw = 0;
-		this.characters = new ArrayList<GameCharacter>();
+		this.characters = new ArrayList<Integer>();
 	}
 
 	public String getName()
@@ -31,6 +32,22 @@ public class Team
 	{
 		return "Win: " + win + " " + "Lose: " + lose + " " + "Draw: " + draw;		
 	}
+	public String getResultsPattern()
+	{
+		return win + "," + lose + ","+ draw;
+	}
+	public String getCharsPattern()
+	{
+		ArrayList<GameCharacter> chars = getCharacters();
+		String s = "";
+		for(GameCharacter cha : chars)
+		{
+			if(!s.equals(""))
+				s += ";";
+			s += cha.getName()+","+cha.className();			
+		}
+		return s;
+	}
 	public String toString()
 	{
 		return "Name: " + name + ", " + "Color: " + color;	
@@ -39,12 +56,12 @@ public class Team
 	{
 		int posA = 0;
 		int posB = 0;	
-	
+		ArrayList<GameCharacter> chars = getCharacters();
 		for(int i = 0; i < 8; i++)
 		{
 			if(i%2 == 0)
 			{
-				GameCharacter attacker = characters.get(posA);
+				GameCharacter attacker = chars.get(posA);
 				if(attacker.getHP() <= 0)
 					continue;
 				GameCharacter attacked = team.getCharacters().get(posA);
@@ -56,7 +73,7 @@ public class Team
 				GameCharacter attacker = team.getCharacters().get(posB);
 				if(attacker.getHP() <= 0)
 					continue;
-				GameCharacter attacked = characters.get(posB);
+				GameCharacter attacked = chars.get(posB);
 				attacker.attack(attacked);
 				posB++;
 			}
@@ -78,7 +95,7 @@ public class Team
 			draw++;
 		}
 	}
-	public void addChar(GameCharacter charac)
+	public void addChar(int charac)
 	{
 		characters.add(charac);
 	}
@@ -93,9 +110,10 @@ public class Team
 	public void removeChar(GameCharacter charac)
 	{
 		int pos = -1;
-		for(int i = 0; i < characters.size();i++)
+		ArrayList<GameCharacter> chars = getCharacters();
+		for(int i = 0; i < chars.size();i++)
 		{
-			if(charac.getName() == characters.get(i).getName())
+			if(charac.getName() == chars.get(i).getName())
 			pos = i;
 		}
 		if(pos != -1)
@@ -105,10 +123,11 @@ public class Team
 	}
 	public GameCharacter searchChar(String name)
 	{
-		for(int i = 0; i < characters.size();i++)
+		ArrayList<GameCharacter> chars = getCharacters();
+		for(int i = 0; i < chars.size();i++)
 		{
-			if(name == characters.get(i).getName())
-				return characters.get(i);
+			if(name == chars.get(i).getName())
+				return chars.get(i);
 		}
 
 		return null;	
@@ -118,7 +137,7 @@ public class Team
 		double hp = 0;
 		for(int i = 0; i < characters.size();i++)
 		{
-			hp += characters.get(i).getHP();
+			hp += getCharacters().get(i).getHP();
 		}
 
 		hp = hp/characters.size();
@@ -127,6 +146,13 @@ public class Team
 	}
 	public ArrayList<GameCharacter> getCharacters()
 	{
-		return characters;
+		ArrayList<GameCharacter> chars = new  ArrayList<GameCharacter>();
+		
+		for(int i : characters)
+		{
+			chars.add(Database.charactersDb.getEntryById(i));
+		}
+		
+		return chars;
 	}
 };

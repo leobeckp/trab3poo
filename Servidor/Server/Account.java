@@ -1,20 +1,22 @@
 package Server;
 
+import Game.*;
 import java.net.*;
 import java.util.*;
 import java.io.*;
 
-public class Account
+public class Account implements java.io.Serializable
 {
-	private String username;
+	public String username;
 	private String password;
-	private int teamId;
+	private int teamId;	
 	
 	
-	public Account(String username, String password)
+	public Account(String username, String password, int teamId)
 	{
 		this.username = username;
 		this.password = password;
+		this.teamId = teamId;
 	}
 	public String getUsername()
 	{
@@ -39,5 +41,9 @@ public class Account
 	public void setTeamId(int value)
 	{
 		teamId = value;
-	}	
+	}
+	public Team getTeam()
+	{
+		return Database.teamsDb.getEntryById(teamId);		
+	}
 }

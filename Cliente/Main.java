@@ -6,16 +6,16 @@ public class Main
 {
 	private static String ip = "127.0.0.1";
 	private static int port = 4000;
-	private static JFrame currentFrame;
+	
 	public static void main(String[] args)
 	{
 		SocketManager.mainSocket = new SocketManager(ip, port);
 		
-		LoginScreen login = new LoginScreen();
-		currentFrame = login;	
+		LoginScreen login = new LoginScreen();			
 		
 		login.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		login.setSize(230,205);		
+		login.setSize(230,205);
+		login.setResizable(false);
 		login.setCenterScreen();
 		login.addWindowListener(new WindowAdapter() 
 		{
@@ -23,12 +23,12 @@ public class Main
 			{
 				if(SocketManager.mainSocket.getAuthenticated())
 				{
-					MainScreen screen = new MainScreen();
-					screen.setSize(640,480);
-					screen.setCenterScreen();
-					currentFrame = screen; 					
-					currentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);					
-					currentFrame.setVisible(true);
+					MainScreen.currentFrame = new MainScreen();
+					MainScreen.currentFrame.setSize(640,480);
+					MainScreen.currentFrame.setCenterScreen();
+					MainScreen.currentFrame.setResizable(false);					 					
+					MainScreen.currentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);					
+					MainScreen.currentFrame.setVisible(true);
 				}
             }
         });		

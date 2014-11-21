@@ -72,9 +72,9 @@ public class Player implements Runnable
 			while((read = input.read(buffer,0,1024)) > 0) 
 			{
 				data = new String(buffer, 0, read, "UTF-8");
-				for(String s : data.split("\n"))
+				for(String s : data.split("\\\r\n"))
 				{
-					Log.logPacket("RECV <<" + s);
+					Log.logPacket("RECV << " + s);
 					Parsing.parseData(this, s);
 				}				
 			}			

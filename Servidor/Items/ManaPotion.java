@@ -13,7 +13,7 @@ public class ManaPotion extends Potion implements java.io.Serializable
 	@Override
 	public void use()
 	{
-		owner.addMP(getRestorePts());
-		owner.deleteItem(this);
+		getOwner().addMP(getRestorePts());
+		getOwner().deleteItem(this);
 	}
 };

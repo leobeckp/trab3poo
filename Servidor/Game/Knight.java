@@ -6,7 +6,7 @@ package Game;
 import Items.*;
 import java.util.*;
 
-public class Knight extends GameCharacter
+public class Knight extends GameCharacter implements java.io.Serializable
 {
 	protected int power;	
 

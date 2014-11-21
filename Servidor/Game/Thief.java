@@ -6,7 +6,7 @@ package Game;
 import Items.*;
 import java.util.*;
 
-public class Thief extends GameCharacter
+public class Thief extends GameCharacter implements java.io.Serializable
 {
 	protected int stealth;	
 
@@ -66,6 +66,6 @@ public class Thief extends GameCharacter
 	@Override
 	public String className()
 	{
-		return "Knight";
+		return "Thief";
 	}	
 };

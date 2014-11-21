@@ -4,7 +4,7 @@
 *************************************************************************************************/
 package Items;
 
-public class HealthPotion extends Potion
+public class HealthPotion extends Potion implements java.io.Serializable
 {
 	public HealthPotion(String name, double price, int restorepts)
 	{
@@ -14,7 +14,7 @@ public class HealthPotion extends Potion
 	@Override
 	public void use()
 	{
-		owner.addHP(getRestorePts());
-		owner.deleteItem(this);
+		getOwner().addHP(getRestorePts());
+		getOwner().deleteItem(this);
 	}
 };

@@ -7,12 +7,13 @@ import Items.*;
 import java.util.*;
 
 
-public abstract class GameCharacter
+public abstract class GameCharacter implements java.io.Serializable
 {
 	private String alias;
 	private	Inventory myitems;
 	private	int HP;
 	private int MP;
+	private int id;
 	protected int XP;
 	protected int strength;
 	protected int speed;
@@ -154,7 +155,7 @@ public abstract class GameCharacter
 	public void addItem(Item item)
 	{
 		myitems.insertItem(item);
-		item.setOwner(this);
+		item.setOwner(id);
 		System.out.println("Item \""+item.getName()+"\" adicionado em \"" + getName());		
 	}
 	public void deleteItem(Item item)

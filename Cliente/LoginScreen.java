@@ -42,22 +42,23 @@ public class LoginScreen extends javax.swing.JFrame
 	}
 	public LoginScreen()
 	{
-		super("AutenticaÁ„o");
+		super("Autentica√ß√£o");
 		
 		setLayout(new FlowLayout());
 		
-		user = new JLabel("Usu·rio: ");
+		user = new JLabel("Usu√°rio: ");
 		add(user);
 		
 		usuario = new JTextField(15);
 		add(usuario);
-		
+		usuario.setText("leokod");
+                
 		pass = new JLabel("Senha:   ");
 		add(pass);
 		
 		senha = new JPasswordField(15);
 		add(senha);
-		
+		senha.setText("123456");
 		Window loginWindow = this;
 		
 		login = new JButton("Entrar");
@@ -70,7 +71,7 @@ public class LoginScreen extends javax.swing.JFrame
 					String pass = getMD5(new String(senha.getPassword()));
 					if(!SocketManager.mainSocket.connect())
 					{
-						JOptionPane.showMessageDialog(null, "ImpossÌvel de conectar-se ao servidor.", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Imposs√≠vel de conectar-se ao servidor.", "Erro na autentica√ß√£o", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
@@ -79,14 +80,15 @@ public class LoginScreen extends javax.swing.JFrame
 					if(resp.equals("OK"))
 					{
 						SocketManager.mainSocket.setAuhenticated(true);
+                                                SocketManager.mainSocket.startGame();                                                
 						loginWindow.dispatchEvent(new WindowEvent(loginWindow, WindowEvent.WINDOW_CLOSING));
 					}
 					else
 					{
 						if(resp.equals("-1"))
-							JOptionPane.showMessageDialog(null, "ImpossÌvel de conectar-se ao servidor.", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Imposs√≠vel de conectar-se ao servidor.", "Erro na autentica√ß√£o", JOptionPane.ERROR_MESSAGE);
 						else
-							JOptionPane.showMessageDialog(null, "Usu·rio/Senha inv·lidos", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Usu√°rio/Senha inv√°lidos", "Erro na autentica√ß√£o", JOptionPane.ERROR_MESSAGE);
 					}
 				}				
 			}
@@ -119,7 +121,8 @@ public class LoginScreen extends javax.swing.JFrame
 					RegisterScreen reg = new RegisterScreen();		
 		
 					reg.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					reg.setSize(230,215);		
+					reg.setSize(230,215);
+					reg.setResizable(false);					
 					reg.setCenterScreen();		
 					reg.setVisible(true);		
 				}

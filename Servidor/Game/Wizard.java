@@ -6,7 +6,7 @@ package Game;
 import Items.*;
 import java.util.*;
 
-public class Wizard extends GameCharacter
+public class Wizard extends GameCharacter implements java.io.Serializable
 {
 	protected int wisdom;	
 
@@ -66,6 +66,6 @@ public class Wizard extends GameCharacter
 	@Override
 	public String className()
 	{
-		return "Knight";
+		return "Wizard";
 	}	
 };

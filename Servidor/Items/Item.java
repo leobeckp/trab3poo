@@ -4,12 +4,13 @@
 *************************************************************************************************/
 package Items;
 import Game.*;
+import Server.*;
 
 public abstract class Item implements java.io.Serializable
 {
 	private String name;
 	private double price;
-	protected GameCharacter owner;	
+	protected int owner;	
 
 	public Item(String name, double price, int attackpts, int defensepts)
 	{
@@ -41,13 +42,13 @@ public abstract class Item implements java.io.Serializable
 	{
 		
 	}
-	public void setOwner(GameCharacter owner)
+	public void setOwner(int owner)
 	{
 		this.owner = owner;
 	}
 	public GameCharacter getOwner()
 	{
-		return owner;
+		return Database.charactersDb.getEntryById(owner);
 	}
 	public String className()
 	{

@@ -6,6 +6,8 @@ import java.lang.reflect.ParameterizedType;
 import java.nio.file.*;
 import java.util.Map.Entry;
 import java.nio.charset.Charset;
+import Game.*;
+import Items.*;
 
 public class Database<T>
 {
@@ -15,11 +17,20 @@ public class Database<T>
 	
 	//métodos static
 	public static Database<Account> accountsDb;
+	public static Database<Team> teamsDb;
+	public static Database<GameCharacter> charactersDb;
+	public static Database<Item> itemsDb;
 	
 	public static void initDatabases()
 	{
 		accountsDb = new Database<Account>(Account.class);
+		teamsDb = new Database<Team>(Team.class);
+		charactersDb = new Database<GameCharacter>(GameCharacter.class);
+		itemsDb = new Database<Item>(Item.class);
 		accountsDb.loadDatabase();
+		teamsDb.loadDatabase();
+		charactersDb.loadDatabase();
+		itemsDb.loadDatabase();
 	}
 	
     public Database(Class<T> persistentClass) 
@@ -85,7 +96,7 @@ public class Database<T>
 				}
 			}
 			catch(Exception e)
-			{
+			{				
 			}
 		}
 		return null;
@@ -97,15 +108,17 @@ public class Database<T>
 			
 		return data.get(i);
 	}
-	public void insertEntry(T entry)
+	public int insertEntry(T entry)
 	{
 		data.put(lastId, entry);
 		lastId++;
+		return lastId - 1;
 	}
-	public void insertEntry(int id, T entry)
+	public int insertEntry(int id, T entry)
 	{
 		data.put(id, entry);
 		if(lastId <= id)		
-			lastId = id + 1;		
+			lastId = id + 1;
+		return id;
 	}
 }

@@ -4,7 +4,7 @@
 *************************************************************************************************/
 package Items;
 
-public class Armor extends Item
+public class Armor extends Item implements java.io.Serializable
 {
 	protected int defensepts;
 	protected double weight;	

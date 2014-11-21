@@ -38,7 +38,7 @@ public class SocketManager
 		catch(Exception e)
 		{
 			//Log.writeError("Erro ao enviar dados para receber resposta.", e);
-			return "-1";
+			return "EErro ao comunicar-se com o servidor";
 		}
 	}
 	public void startGame()
@@ -59,7 +59,7 @@ public class SocketManager
 		}
 		catch (Exception e)
 		{
-			//Log.writeError("Erro ao conectar socket.", e);
+			Log.writeError("Erro ao conectar socket.", e);
 			return false;
 		}	
 	}
@@ -88,11 +88,12 @@ class StreamReceiver implements Runnable
 			while ((data = client.getIn().readLine()) != null)
 			{
 				Parsing.parseData(client, data);
+                                Log.logPacket("RECV << "+data);
 			}
 		}
 		catch(Exception e)
 		{
-			
+                    Log.writeError("Erro ao receber pacote.", e);
 		}
 		isRunning = false;
 	}
