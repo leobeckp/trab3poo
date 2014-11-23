@@ -59,7 +59,7 @@ public class LoginScreen extends javax.swing.JFrame
 		senha = new JPasswordField(15);
 		add(senha);
 		senha.setText("123456");
-		Window loginWindow = this;
+		final Window loginWindow = this;
 		
 		login = new JButton("Entrar");
 		login.addActionListener(new ActionListener()

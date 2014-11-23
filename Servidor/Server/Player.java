@@ -9,21 +9,13 @@ public class Player implements Runnable
 	private Socket socket;
 	private Account account;
 	private Thread thread;
-	private String ip;
-	private PrintWriter out;
+	private String ip;	
 	
 	public Player(Socket socket)
 	{
 		this.socket = socket;
 		this.ip = socket.getInetAddress().toString();
-		this.thread = new Thread(this);
-		try
-		{
-			out = new PrintWriter(socket.getOutputStream(), true);
-		}
-		catch(Exception e)
-		{
-		}
+		this.thread = new Thread(this);		
 	}
 	public Account getAccount()
 	{
@@ -47,7 +39,18 @@ public class Player implements Runnable
 	}
 	public void sendData(String data)
 	{
-		out.println(data);
+		try
+		{
+			Log.logPacket("SEND >> "+data);
+			data += "\r\n";			
+			byte[] bData = data.getBytes("UTF-8");
+			socket.getOutputStream().write(bData);
+			socket.getOutputStream().flush();
+		}
+		catch(Exception e)
+		{
+			Log.writeError("Erro ao enviar pacote.", e);
+		}
 	}
 	public void disconnect()
 	{
@@ -64,8 +67,7 @@ public class Player implements Runnable
 	{
 		try
 		{
-			InputStream input  = socket.getInputStream();
-			OutputStream output = socket.getOutputStream();
+			InputStream input  = socket.getInputStream();			
 			String data;
 			byte[] buffer = new byte[1024];
 			int read = 0;

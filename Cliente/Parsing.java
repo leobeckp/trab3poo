@@ -54,8 +54,8 @@ public class Parsing
                                                }
                                             break;
                                         case 'B':
-                                            if(data.startsWith("E"))        
-                                                JOptionPane.showMessageDialog(null, data.substring(2), "Erro ao criar time", JOptionPane.ERROR_MESSAGE);        
+                                            if(data.substring(2).startsWith("E"))        
+                                                JOptionPane.showMessageDialog(null, data.substring(3), "Erro ao criar time", JOptionPane.ERROR_MESSAGE);        
                                             else
                                                 JOptionPane.showMessageDialog(null, "Time criado com sucesso!", "Time criado", JOptionPane.INFORMATION_MESSAGE);
                                             break;

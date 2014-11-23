@@ -64,7 +64,7 @@ public class RegisterScreen extends javax.swing.JFrame
 		csenha = new JPasswordField(15);
 		add(csenha);
 		
-		Window thisWindow = this;
+		final Window thisWindow = this;
 		
 		cadastrar = new JButton("Cadastrar");
 		cadastrar.addActionListener(new ActionListener()

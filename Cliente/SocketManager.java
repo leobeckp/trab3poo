@@ -1,11 +1,10 @@
 import java.net.*;
 import java.io.*;
+import javax.swing.JOptionPane;
 
 public class SocketManager
 {
-	private Socket socket;
-	private PrintWriter out;
-	private BufferedReader in;
+	private Socket socket;	
 	private Thread recvThread;
 	private Boolean isRunning;
 	public static SocketManager mainSocket;
@@ -18,22 +17,42 @@ public class SocketManager
 		this.host = host;
 		this.port = port;
 		this.authenticated = false;
-	}
-	public BufferedReader getIn()
-	{
-		return in;
-	}
+	}	
 	public void sendData(String data)
 	{
-		out.println(data);
+            try
+            {
+                data += "\r\n";
+                Log.logPacket("SEND >> "+data);
+                byte[] bData = data.getBytes("UTF-8");
+                socket.getOutputStream().write(bData);
+                socket.getOutputStream().flush();		
+            }
+            catch(Exception e)
+            {
+                
+            }                
 	}
 	public String sendDataAndWaitResponse(String data)
 	{
 		try
 		{
-			out.println(data);		
-			data = in.readLine();		
-			return data;
+                    data += "\r\n";
+                    Log.logPacket("SEND >> "+data);
+                    byte[] bData = data.getBytes("UTF-8");
+                    socket.getOutputStream().write(bData);
+                    socket.getOutputStream().flush();		
+		    byte[] buffer = new byte[2048]; 
+                    int read = socket.getInputStream().read(buffer, 0, 2048);
+                    if(read > 0)
+                    {
+                        String recv = new String(buffer, 0, read, "UTF-8");
+                        recv = recv.split("\\\r\n")[0];
+                        Log.logPacket("RECV << "+recv);
+                        return recv;
+                    }
+                    else                            
+                        return "EErro ao comunicar-se com o servidor";
 		}
 		catch(Exception e)
 		{
@@ -53,9 +72,11 @@ public class SocketManager
 		try
 		{
 			socket = new Socket(host, port);
-			out = new PrintWriter(socket.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			return true;
+		}
+		catch(ConnectException e)
+		{
+			return false;
 		}
 		catch (Exception e)
 		{
@@ -70,7 +91,11 @@ public class SocketManager
 	public Boolean getAuthenticated()
 	{
 		return authenticated;
-	}		
+	}
+        public Socket getSocket()
+        {
+            return socket;
+        }
 };
 class StreamReceiver implements Runnable
 {
@@ -85,16 +110,26 @@ class StreamReceiver implements Runnable
 		String data = "";
 		try
 		{
-			while ((data = client.getIn().readLine()) != null)
+			InputStream input  = client.getSocket().getInputStream();
+			OutputStream output = client.getSocket().getOutputStream();			
+			byte[] buffer = new byte[1024];
+			int read = 0;
+			while((read = input.read(buffer,0,1024)) > 0) 
 			{
-				Parsing.parseData(client, data);
-                                Log.logPacket("RECV << "+data);
-			}
+				data = new String(buffer, 0, read, "UTF-8");
+				for(String s : data.split("\\\r\n"))
+				{
+					Log.logPacket("RECV << " + s);
+					Parsing.parseData(this.client, s);
+				}				
+			}		
 		}
 		catch(Exception e)
 		{
                     Log.writeError("Erro ao receber pacote.", e);
 		}
+                JOptionPane.showMessageDialog(null, "A conexão com o servidor foi encerrada.", "Conexão perdida", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
 		isRunning = false;
 	}
 };

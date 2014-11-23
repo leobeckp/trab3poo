@@ -92,7 +92,6 @@ public class Parsing
 						case 'A'://Enviar informações do time
 							if(plr.getAccount() != null)
 							{
-								System.out.println("a");
 								if(plr.getAccount().getTeamId() == -1)
 								{
 									plr.sendData("BA-1");

@@ -38,25 +38,6 @@ public class MainScreen extends javax.swing.JFrame {
         tWin = new javax.swing.JLabel();
         tLoss = new javax.swing.JLabel();
         tDraw = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        perso3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        perso3name = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        perso3race = new javax.swing.JComboBox();
-        perso2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        perso2name = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        perso2race = new javax.swing.JComboBox();
-        jButton5 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        nomeTime = new javax.swing.JTextField();
-        perso1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        perso1name = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        perso1race = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -65,11 +46,32 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        content = new javax.swing.JPanel();
+        criarChar = new javax.swing.JPanel();
+        perso3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        perso3name = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        perso3race = new javax.swing.JComboBox();
+        perso2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        perso2name = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        perso2race = new javax.swing.JComboBox();
+        jButton5 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        nomeTime = new javax.swing.JTextField();
+        perso1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        perso1name = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        perso1race = new javax.swing.JComboBox();
+        painelLimpo = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(68840, 4880));
-        setMinimumSize(new java.awt.Dimension(759, 545));
-        setPreferredSize(new java.awt.Dimension(759, 503));
+        setMaximumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(750, 550));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -77,8 +79,9 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setMaximumSize(new java.awt.Dimension(194, 174));
-        jPanel2.setMinimumSize(new java.awt.Dimension(194, 174));
+        jPanel2.setMaximumSize(new java.awt.Dimension(200, 170));
+        jPanel2.setMinimumSize(new java.awt.Dimension(200, 170));
+        jPanel2.setPreferredSize(new java.awt.Dimension(200, 170));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Meu time");
@@ -120,7 +123,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(tDraw)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,17 +137,72 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(tLoss)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tDraw)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton1.setText("Criar time");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Procurar batalha");
+
+        jButton3.setText("Aguardar batalha");
+
+        jButton4.setText("Inventário");
+
+        jLabel2.setText("Informações de ");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel3.setText("HP: ");
+
+        jLabel4.setText("Classe: ");
+
+        javax.swing.GroupLayout charInfoLayout = new javax.swing.GroupLayout(charInfo);
+        charInfo.setLayout(charInfoLayout);
+        charInfoLayout.setHorizontalGroup(
+            charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(charInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addGroup(charInfoLayout.createSequentialGroup()
+                        .addGroup(charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        charInfoLayout.setVerticalGroup(
+            charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(charInfoLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(0, 50, Short.MAX_VALUE))
+        );
+
+        content.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        content.setMaximumSize(new java.awt.Dimension(524, 465));
+        content.setMinimumSize(new java.awt.Dimension(524, 465));
+        content.setLayout(new java.awt.CardLayout());
+
+        criarChar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        criarChar.setMaximumSize(new java.awt.Dimension(502, 441));
+        criarChar.setMinimumSize(new java.awt.Dimension(502, 441));
 
         perso3.setBorder(javax.swing.BorderFactory.createTitledBorder("Personagem 3"));
+        perso3.setMaximumSize(new java.awt.Dimension(228, 112));
+        perso3.setMinimumSize(new java.awt.Dimension(228, 112));
 
-        jLabel7.setText("Nome do personagem:");
+        jLabel11.setText("Nome do personagem:");
 
-        jLabel8.setText("Classe do personagem:");
+        jLabel12.setText("Classe do personagem:");
 
         perso3race.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Knight", "Thief", "Wizard" }));
 
@@ -155,29 +213,31 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(perso3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(perso3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7)
+                    .addComponent(jLabel11)
                     .addComponent(perso3name)
-                    .addComponent(jLabel8)
+                    .addComponent(jLabel12)
                     .addComponent(perso3race, 0, 196, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         perso3Layout.setVerticalGroup(
             perso3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(perso3Layout.createSequentialGroup()
-                .addComponent(jLabel7)
+                .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(perso3name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(perso3race, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         perso2.setBorder(javax.swing.BorderFactory.createTitledBorder("Personagem 2"));
+        perso2.setMaximumSize(new java.awt.Dimension(228, 112));
+        perso2.setMinimumSize(new java.awt.Dimension(228, 112));
 
-        jLabel9.setText("Nome do personagem:");
+        jLabel13.setText("Nome do personagem:");
 
-        jLabel10.setText("Classe do personagem:");
+        jLabel14.setText("Classe do personagem:");
 
         perso2race.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Knight", "Thief", "Wizard" }));
 
@@ -188,20 +248,20 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(perso2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(perso2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9)
+                    .addComponent(jLabel13)
                     .addComponent(perso2name)
-                    .addComponent(jLabel10)
+                    .addComponent(jLabel14)
                     .addComponent(perso2race, 0, 196, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         perso2Layout.setVerticalGroup(
             perso2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(perso2Layout.createSequentialGroup()
-                .addComponent(jLabel9)
+                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(perso2name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(perso2race, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -213,9 +273,17 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Nome do time:");
+        jLabel15.setText("Nome do time:");
+
+        nomeTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeTimeActionPerformed(evt);
+            }
+        });
 
         perso1.setBorder(javax.swing.BorderFactory.createTitledBorder("Personagem 1"));
+        perso1.setMaximumSize(new java.awt.Dimension(228, 112));
+        perso1.setMinimumSize(new java.awt.Dimension(228, 112));
 
         jLabel5.setText("Nome do personagem:");
 
@@ -249,41 +317,38 @@ public class MainScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout criarCharLayout = new javax.swing.GroupLayout(criarChar);
+        criarChar.setLayout(criarCharLayout);
+        criarCharLayout.setHorizontalGroup(
+            criarCharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, criarCharLayout.createSequentialGroup()
+                .addContainerGap(219, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(226, 226, 226))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(criarCharLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel11)
+                .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nomeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(nomeTime, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(criarCharLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(perso3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(perso2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(criarCharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(perso3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(perso2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(criarCharLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(perso1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        criarCharLayout.setVerticalGroup(
+            criarCharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(criarCharLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(nomeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(criarCharLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(nomeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(perso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -294,51 +359,22 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(jButton5))
         );
 
-        jButton1.setText("Criar time");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        content.add(criarChar, "card2");
 
-        jButton2.setText("Procurar batalha");
+        painelLimpo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton3.setText("Aguardar batalha");
-
-        jButton4.setText("Inventário");
-
-        jLabel2.setText("Informações de ");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jLabel3.setText("HP: ");
-
-        jLabel4.setText("Classe: ");
-
-        javax.swing.GroupLayout charInfoLayout = new javax.swing.GroupLayout(charInfo);
-        charInfo.setLayout(charInfoLayout);
-        charInfoLayout.setHorizontalGroup(
-            charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(charInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(charInfoLayout.createSequentialGroup()
-                        .addGroup(charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+        javax.swing.GroupLayout painelLimpoLayout = new javax.swing.GroupLayout(painelLimpo);
+        painelLimpo.setLayout(painelLimpoLayout);
+        painelLimpoLayout.setHorizontalGroup(
+            painelLimpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
-        charInfoLayout.setVerticalGroup(
-            charInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(charInfoLayout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(0, 50, Short.MAX_VALUE))
+        painelLimpoLayout.setVerticalGroup(
+            painelLimpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 439, Short.MAX_VALUE)
         );
+
+        content.add(painelLimpo, "card2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -349,9 +385,9 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(charInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(146, 146, 146)
                 .addComponent(jButton1)
@@ -373,11 +409,11 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(charInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(charInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -389,6 +425,21 @@ public class MainScreen extends javax.swing.JFrame {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        content.removeAll();
+        content.add(criarChar);
+        content.repaint(); 
+        content.revalidate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        SocketManager.mainSocket.sendData("BA");
+        content.removeAll();
+        content.add(painelLimpo);
+        content.repaint();        
+        content.revalidate();
+    }//GEN-LAST:event_formWindowOpened
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         if(perso1name.getText().equals("") || perso2name.getText().equals("")|| perso3name.getText().equals(""))
         {
@@ -400,19 +451,13 @@ public class MainScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você deve preencher o nome do time.", "Erro ao criar time", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        SocketManager.mainSocket.sendData("BB"+nomeTime.getText()+"|"+perso1name.getText()+","+perso1race.getSelectedItem().toString()+";"+perso2name.getText()+","+perso2race.getSelectedItem().toString()+";"+perso3name.getText()+","+perso3race.getSelectedItem().toString());        
+
+        SocketManager.mainSocket.sendData("BB"+nomeTime.getText()+"|"+perso1name.getText()+","+perso1race.getSelectedItem().toString()+";"+perso2name.getText()+","+perso2race.getSelectedItem().toString()+";"+perso3name.getText()+","+perso3race.getSelectedItem().toString());
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jPanel1.setVisible(true);
-        //fixer.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        SocketManager.mainSocket.sendData("BA");
-        jPanel1.setVisible(false);
-    }//GEN-LAST:event_formWindowOpened
+    private void nomeTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeTimeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,26 +498,28 @@ public class MainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel charInfo;
     public javax.swing.JList charList;
+    private javax.swing.JPanel content;
+    private javax.swing.JPanel criarChar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nomeTime;
+    private javax.swing.JPanel painelLimpo;
     private javax.swing.JPanel perso1;
     private javax.swing.JTextField perso1name;
     private javax.swing.JComboBox perso1race;
