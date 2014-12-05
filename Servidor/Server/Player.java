@@ -9,13 +9,15 @@ public class Player implements Runnable
 	private Socket socket;
 	private Account account;
 	private Thread thread;
-	private String ip;	
+	private String ip;
+	private boolean ready;
 	
 	public Player(Socket socket)
 	{
 		this.socket = socket;
 		this.ip = socket.getInetAddress().toString();
-		this.thread = new Thread(this);		
+		this.thread = new Thread(this);
+		this.ready = false;
 	}
 	public Account getAccount()
 	{
@@ -36,6 +38,17 @@ public class Player implements Runnable
 	public void setAccount(Account value)
 	{
 		account = value;
+	}
+	public void setReady()
+	{
+		this.ready = true;
+	}
+	public boolean isReady()
+	{
+		if(this.ready)
+			return true;
+			else
+				return false;
 	}
 	public void sendData(String data)
 	{
