@@ -10,9 +10,9 @@ Para compilar, basta digitar "make build" na pasta raiz do repositório, que tan
 Como executar
 ========
 
-Para abrir o Cliente, digite "make Cliente" ou "make Client".
+Para abrir o Cliente, digite "make cliente" ou "make client" na pasta raiz do repositório.
 
-Para abrir o Servidor, digite "make Server" ou "make Servidor".
+Para abrir o Servidor, digite "make server" ou "make servidor" na pasta raiz do repositório.
 
 Como jogar
 ========
