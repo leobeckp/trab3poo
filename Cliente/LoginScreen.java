@@ -42,23 +42,23 @@ public class LoginScreen extends javax.swing.JFrame
 	}
 	public LoginScreen()
 	{
-		super("Autentica√ß√£o");
+		super("AutenticaÁ„o");
 		
 		setLayout(new FlowLayout());
 		
-		user = new JLabel("Usu√°rio: ");
+		user = new JLabel("Usu·rio: ");
 		add(user);
 		
 		usuario = new JTextField(15);
 		add(usuario);
-		usuario.setText("leokod");
+		usuario.setText("teste");
                 
 		pass = new JLabel("Senha:   ");
 		add(pass);
 		
 		senha = new JPasswordField(15);
 		add(senha);
-		senha.setText("123456");
+		senha.setText("teste");
 		final Window loginWindow = this;
 		
 		login = new JButton("Entrar");
@@ -71,7 +71,7 @@ public class LoginScreen extends javax.swing.JFrame
 					String pass = getMD5(new String(senha.getPassword()));
 					if(!SocketManager.mainSocket.connect())
 					{
-						JOptionPane.showMessageDialog(null, "Imposs√≠vel de conectar-se ao servidor.", "Erro na autentica√ß√£o", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ImpossÌvel de conectar-se ao servidor.", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
@@ -86,9 +86,12 @@ public class LoginScreen extends javax.swing.JFrame
 					else
 					{
 						if(resp.equals("-1"))
-							JOptionPane.showMessageDialog(null, "Imposs√≠vel de conectar-se ao servidor.", "Erro na autentica√ß√£o", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "ImpossÌvel de conectar-se ao servidor.", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
 						else
-							JOptionPane.showMessageDialog(null, "Usu√°rio/Senha inv√°lidos", "Erro na autentica√ß√£o", JOptionPane.ERROR_MESSAGE);
+                                                    if(resp.equals("LOGGED"))
+                                                        JOptionPane.showMessageDialog(null, "Esta conta j· est· logada!", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
+                                                    else
+							JOptionPane.showMessageDialog(null, "Usu·rio/Senha inv·lidos", "Erro na autenticaÁ„o", JOptionPane.ERROR_MESSAGE);
 					}
 				}				
 			}

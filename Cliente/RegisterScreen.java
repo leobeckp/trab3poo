@@ -46,7 +46,7 @@ public class RegisterScreen extends javax.swing.JFrame
 		
 		setLayout(new FlowLayout());
 		
-		user = new JLabel("Usu√°rio: ");
+		user = new JLabel("Usu·rio: ");
 		add(user);
 		
 		usuario = new JTextField(15);
@@ -77,7 +77,7 @@ public class RegisterScreen extends javax.swing.JFrame
 					String cpass = getMD5(new String(csenha.getPassword()));
 					if(!SocketManager.mainSocket.connect())
 					{
-						JOptionPane.showMessageDialog(null, "Imposs√≠vel de conectar-se ao servidor.", "Erro no cadastro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "ImpossÌvel de conectar-se ao servidor.", "Erro no cadastro", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					
@@ -85,13 +85,13 @@ public class RegisterScreen extends javax.swing.JFrame
 					
 					if(resp.equals("K"))
 					{
-						JOptionPane.showMessageDialog(null, "Seu cadastro foi feito com sucesso!", "Cadastro conclu√≠do", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Seu cadastro foi feito com sucesso!", "Cadastro concluÌdo", JOptionPane.INFORMATION_MESSAGE);
                                                 thisWindow.dispatchEvent(new WindowEvent(thisWindow, WindowEvent.WINDOW_CLOSING));
 					}
 					else
 					{
 						if(resp.equals("-1"))
-							JOptionPane.showMessageDialog(null, "Imposs√≠vel de conectar-se ao servidor.", "Erro no cadastro", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "ImpossÌvel de conectar-se ao servidor.", "Erro no cadastro", JOptionPane.ERROR_MESSAGE);
 						else
 							JOptionPane.showMessageDialog(null, resp.substring(1), "Erro no cadastro", JOptionPane.ERROR_MESSAGE);
 					}

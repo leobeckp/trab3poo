@@ -1,11 +1,29 @@
 package Server;
 import Game.*;
+import Items.*;
 import java.net.*;
 import java.util.*;
 import java.io.*;
 
 public class Parsing
 {
+	private static int Random(int min, int max)
+	{
+		Random rand = new Random();    
+   		return rand.nextInt((max - min) + 1) + min;
+	}
+	private static String RandomArmorName()
+	{
+		String p1[] = {" de Madeira", " de Ferro", " de Couro", " de Pano"};
+		return "Armadura" + p1[Random(0,3)];
+	}
+	private static String RandomWeaponName()
+	{
+		String p1[] = {"Cajado", "Adaga", "Espada", "Arco"};
+		String p2[] = {" de Madeira", " de Ferro", " de Bronze", " de Ouro"};
+
+		return p1[Random(0, 3)] + p2[Random(0,3)];
+	}
 	public static void parseData(Player plr, String data)
 	{
 		try
@@ -21,14 +39,28 @@ public class Parsing
 							String username = sptData[0];							
 							String pass = sptData[1];							
 							
-							Account acc = Database.accountsDb.getEntryByField("username", username);
+							Account acc = Database.accountsDb.getEntryByField("username", username);//Procura se existe uma conta com o usuário fornecido.
 					
 							if(acc != null)
 							{
 								if(acc.getPassword().equals(pass))
 								{
-									plr.sendData("OK");
-									plr.setAccount(acc);																
+									Player logged = null;
+									for(Player i: Server.getPlayersList())
+									{
+										if(i.getAccount() == acc)
+											logged = i;
+									}
+									if(logged != null)
+									{
+										plr.sendData("LOGGED");
+										plr.disconnect();
+									}
+									else
+									{
+										plr.sendData("OK");
+										plr.setAccount(acc);
+									}																									
 								}
 								else
 								{
@@ -62,7 +94,7 @@ public class Parsing
 							}
 							if(pass.equals(cpass))
 							{
-								acc = Database.accountsDb.getEntryByField("username", username);
+								acc = Database.accountsDb.getEntryByField("username", username);//Procura se existe uma conta com o usuário fornecido.
 								if(acc == null)
 								{
 									acc = new Account(username, pass, -1);
@@ -92,7 +124,7 @@ public class Parsing
 						case 'A'://Enviar informações do time
 							if(plr.getAccount() != null)
 							{
-								if(plr.getAccount().getTeamId() == -1)
+								if(plr.getAccount().getTeamId() == -1)//Sem time criado
 								{
 									plr.sendData("BA-1");
 								}
@@ -140,7 +172,23 @@ public class Parsing
 										{
 											int id = Database.charactersDb.insertEntry(cha);
 											Database.charactersDb.saveDatabase();
-											team.addChar(id);											
+											team.addChar(id);
+											
+											Armor armor = new Armor(RandomArmorName(),Random(20,100), Random(2,4), Random(1,20));
+											cha.addItem(armor);
+											cha.equipItem(armor);
+											Database.itemsDb.insertEntry(armor);
+											
+											Weapon weapon = new Weapon(RandomWeaponName(),Random(20,100), Random(8,9), 1);
+											cha.addItem(weapon);
+											cha.equipItem(weapon);
+											Database.itemsDb.insertEntry(weapon);
+											
+											Potion hp = new HealthPotion("Health Potion",Random(20,100), 100);
+											
+											cha.addItem(hp);
+											Database.itemsDb.insertEntry(hp);
+											Database.itemsDb.saveDatabase();
 										}
 										else
 										{
@@ -158,8 +206,69 @@ public class Parsing
 								}
 							}
 						break;
+						case 'C'://Informações de personagem
+							if(plr.getAccount() != null)
+							{
+								String name = data.substring(2);
+								Team team = plr.getAccount().getTeam();
+								GameCharacter cha = team.searchChar(name);
+								if(cha != null)
+								{
+									plr.sendData("BC"+cha.getHP()+"|"+cha.className());
+								}
+							}
+						break;						
 					}
-				break;				
+				break;
+				case 'C'://Pacotes relativos a batalha
+					switch(data.charAt(1))
+					{
+						case 'A'://Definir pronto ou não para batalhas.
+							if(plr.getAccount() != null)
+							{
+								if(plr.getAccount().getTeamId() == -1)
+								{
+									plr.sendData("CAEVocê não possui um time para batalhar.");
+									return;
+								}
+								plr.setReady(data.substring(2).equals("1"));
+								Player opo = Server.searchOpponent(plr);
+								if(opo != null)
+								{
+									plr.fightPlayer(opo);
+								}
+								else
+								{
+									plr.sendData("CA"+(plr.isReady() == true?"1":"0"));
+								}
+							}	
+						break;						
+					}					
+				break;
+				case 'D'://Pacotes relacionados ao inventário.
+					switch(data.charAt(1))
+					{
+						case 'A'://Listar itens do jogador
+							if(plr.getAccount() != null)
+							{
+								String name = data.substring(2);
+								Team team = plr.getAccount().getTeam();
+								GameCharacter cha = team.searchChar(name);
+								if(cha != null)
+								{
+									String itens = "";
+									for(AbstractMap.SimpleEntry<Item,Boolean> i : cha.getInventory().getItems())
+									{
+										if(!itens.equals(""))
+											itens += "|";
+										itens += i.getKey().getName();
+									}
+									plr.sendData("DA"+itens);
+								}
+							}
+						break;
+					}
+				break;
 			}
 		}
 		catch(Exception e)

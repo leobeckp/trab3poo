@@ -55,7 +55,7 @@ public abstract class GameCharacter implements java.io.Serializable
 	{
 		return alias;
 	}
-	public abstract void attack(GameCharacter target);
+	public abstract ArrayList<String> attack(GameCharacter target);
 	
 	public void addXP(int amount)
 	{
@@ -122,24 +122,28 @@ public abstract class GameCharacter implements java.io.Serializable
 		constitution = amount;
 		System.out.println("Constitution de \"" + getName() + "\" alterada para " + constitution);		
 	}
-	protected void inflictDamage(int amount)
+	protected ArrayList<String> inflictDamage(int amount)
 	{
+		ArrayList<String> data = new ArrayList<String>();
+		
 		if(HP <= 0)
 		{
-			System.out.println("O personagem \""+getName()+"\" ja esta morto!");
-			return;
+			data.add("O personagem \""+getName()+"\" ja esta morto!");
+			return data;
 		}
 	
-		System.out.println("O personagem \"" + getName() + "\"sofreu " + amount + " de dano.");		
+		data.add("O personagem \"" + getName() + "\"sofreu " + amount + " de dano.");		
 	
 		HP -= amount;
 	
 		if(HP <= 0)
 		{
 			HP = 0;
-			System.out.println("O personagem \""+ alias + "\" foi morto!");			
-			return;
-		}	
+			data.add("O personagem \""+ alias + "\" foi morto!");			
+			return data;
+		}
+		
+		return data;
 	}
 	public void setAccuracy(int amount)
 	{
@@ -183,6 +187,10 @@ public abstract class GameCharacter implements java.io.Serializable
 	public void addMP(int amount)
 	{
 		MP += amount;		
+	}
+	public Inventory getInventory()
+	{
+		return myitems;
 	}
 	public int getSpeed()
 	{

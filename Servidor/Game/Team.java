@@ -52,12 +52,13 @@ public class Team implements java.io.Serializable
 	{
 		return "Name: " + name + ", " + "Color: " + color;	
 	}
-	public void fightTeam(Team team)
+	public ArrayList<String> fightTeam(Team team)
 	{
+		ArrayList<String> fightData = new ArrayList<String>();
 		int posA = 0;
 		int posB = 0;	
 		ArrayList<GameCharacter> chars = getCharacters();
-		for(int i = 0; i < 8; i++)
+		for(int i = 0; i < 6; i++)
 		{
 			if(i%2 == 0)
 			{
@@ -65,7 +66,7 @@ public class Team implements java.io.Serializable
 				if(attacker.getHP() <= 0)
 					continue;
 				GameCharacter attacked = team.getCharacters().get(posA);
-				attacker.attack(attacked);
+				fightData.addAll(attacker.attack(attacked));
 				posA++;
 			}
 			else
@@ -74,11 +75,11 @@ public class Team implements java.io.Serializable
 				if(attacker.getHP() <= 0)
 					continue;
 				GameCharacter attacked = chars.get(posB);
-				attacker.attack(attacked);
+				fightData.addAll(attacker.attack(attacked));
 				posB++;
-			}
-			System.out.println("");
+			}			
 		}
+		return fightData;
 	}
 	public void resolveBattle(Team team)
 	{
@@ -113,7 +114,7 @@ public class Team implements java.io.Serializable
 		ArrayList<GameCharacter> chars = getCharacters();
 		for(int i = 0; i < chars.size();i++)
 		{
-			if(charac.getName() == chars.get(i).getName())
+			if(charac.getName().equals(chars.get(i).getName()))
 			pos = i;
 		}
 		if(pos != -1)
@@ -126,7 +127,7 @@ public class Team implements java.io.Serializable
 		ArrayList<GameCharacter> chars = getCharacters();
 		for(int i = 0; i < chars.size();i++)
 		{
-			if(name == chars.get(i).getName())
+			if(name.equals(chars.get(i).getName()))
 				return chars.get(i);
 		}
 

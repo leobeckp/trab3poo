@@ -29,10 +29,12 @@ public class Server
 		Server.bindIp = bindIp;
 		start(port, bindIp, backlog);
 	}
-	public Player searchOpponent(){
+	public static Player searchOpponent(Player plr)
+	{
 		for(Player i:playersList)
-			if(i.isReady())
+			if(i.isReady() && plr != i)
 				return i;
+		return null;
 	}
 	public static void start(int port, String bindIp, int backlog)
 	{

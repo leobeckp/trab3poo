@@ -46,6 +46,7 @@ public class Database<T>
 			FileInputStream fis = new FileInputStream(persistentClass.getName()+".db");
             ObjectInputStream ois = new ObjectInputStream(fis);
 			data = (HashMap<Integer, T>)ois.readObject();
+			lastId = data.size();
 			fis.close();
             ois.close();
 		}

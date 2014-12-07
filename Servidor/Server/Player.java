@@ -3,6 +3,7 @@ package Server;
 import java.net.*;
 import java.util.*;
 import java.io.*;
+import Game.*;
 
 public class Player implements Runnable
 {
@@ -39,9 +40,9 @@ public class Player implements Runnable
 	{
 		account = value;
 	}
-	public void setReady()
+	public void setReady(boolean value)
 	{
-		this.ready = true;
+		this.ready = value;
 	}
 	public boolean isReady()
 	{
@@ -49,6 +50,54 @@ public class Player implements Runnable
 			return true;
 			else
 				return false;
+	}
+	public void fightPlayer(Player opo)
+	{
+		int win = Integer.parseInt(getAccount().getTeam().getResultsPattern().split("\\,")[0]);
+		int draw = Integer.parseInt(getAccount().getTeam().getResultsPattern().split("\\,")[2]);
+		
+		for(GameCharacter i : getAccount().getTeam().getCharacters())
+		{
+			i.addHP(100);
+		}
+		for(GameCharacter i : opo.getAccount().getTeam().getCharacters())
+		{
+			i.addHP(100);
+		}
+		ArrayList<String> fightData = getAccount().getTeam().fightTeam(opo.getAccount().getTeam());
+		getAccount().getTeam().resolveBattle(opo.getAccount().getTeam());
+		opo.getAccount().getTeam().resolveBattle(getAccount().getTeam());
+		
+		fightData.add("Pontos do time \""+getAccount().getTeam().getName()+"\": "+getAccount().getTeam().getPoints());
+		fightData.add("Pontos do time \""+opo.getAccount().getTeam().getName()+"\": "+opo.getAccount().getTeam().getPoints());
+		
+		int cwin = Integer.parseInt(getAccount().getTeam().getResultsPattern().split("\\,")[0]);
+		int cdraw = Integer.parseInt(getAccount().getTeam().getResultsPattern().split("\\,")[2]);
+		
+		if(cwin > win)
+		{
+			fightData.add("O time \""+getAccount().getTeam().getName()+"\" foi o vencedor do combate!");
+		}
+		else
+		{
+			if(cdraw > draw)
+			{
+				fightData.add("O combate terminou empatado!");
+			}
+			else
+			{
+				fightData.add("O time \""+opo.getAccount().getTeam().getName()+"\" foi o vencedor do combate!");
+			}
+		}
+		sendData("CB"+String.join("|", fightData));
+		opo.sendData("CB"+String.join("|", fightData));
+		Parsing.parseData(this,"BA" );
+		Parsing.parseData(opo,"BA");
+		setReady(false);
+		opo.setReady(false);
+		opo.sendData("CA0");
+		sendData("CA0");
+		Database.teamsDb.saveDatabase();
 	}
 	public void sendData(String data)
 	{
