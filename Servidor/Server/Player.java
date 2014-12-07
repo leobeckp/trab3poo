@@ -89,8 +89,15 @@ public class Player implements Runnable
 				fightData.add("O time \""+opo.getAccount().getTeam().getName()+"\" foi o vencedor do combate!");
 			}
 		}
-		sendData("CB"+String.join("|", fightData));
-		opo.sendData("CB"+String.join("|", fightData));
+		String fightInfo = "";
+		for(String i : fightData)
+		{
+			if(!fightInfo.equals(""))
+				fightInfo += "|";
+			fightInfo += i;
+		}
+		sendData("CB"+fightInfo);
+		opo.sendData("CB"+fightInfo);
 		Parsing.parseData(this,"BA" );
 		Parsing.parseData(opo,"BA");
 		setReady(false);
