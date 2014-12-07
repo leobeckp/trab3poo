@@ -11,6 +11,7 @@ Como executar
 ========
 
 Para abrir o Cliente, digite "make Cliente" ou "make Client".
+
 Para abrir o Servidor, digite "make Server" ou "make Servidor".
 
 Como jogar
@@ -25,3 +26,8 @@ Para participar de uma batalha, pressione o botão "Encontrar batalha". Uma bata
 Você pode cancelar o estado de aguardar batalha, clicanmdo em "Sair da fila".
 
 Para visualizar seus itens, pressione o botão "Inventário" e clique no personagem desejado, no painel de informações sobre o time.
+
+Código desenvolvido por:
+
+Leonardo Beck Prates - Nº USP 7962121
+Mateus Ribeiro Vanzella - Nº USP 8504181
