@@ -20,14 +20,16 @@ Como jogar
 
 Você pode registrar sua conta após abrir o Cliente, clicando em "Registrar" na tela de Login.
 
-Após efetuar o login, crie um time para que possa participar de batalhas. Basta clicar no botão "Criar time", escolher o nome do time, as classes dos três presonagens e seus nomes. Depois, clicar em "Criar".
+Após efetuar o login, crie um time para que possa participar de batalhas. Basta clicar no botão "Criar time", escolher o nome do time, as classes dos três personagens e seus nomes. Depois, clicar em "Criar".
 
 Para participar de uma batalha, pressione o botão "Encontrar batalha". Uma batalha será automaticamente iniciada quando outro jogador pressionar o botão "Encontrar batalha".
-Você pode cancelar o estado de aguardar batalha, clicanmdo em "Sair da fila".
+
+Você pode cancelar o estado de aguardar batalha, clicando em "Sair da fila".
 
 Para visualizar seus itens, pressione o botão "Inventário" e clique no personagem desejado, no painel de informações sobre o time.
 
 Código desenvolvido por:
 
 Leonardo Beck Prates - Nº USP 7962121
+
 Mateus Ribeiro Vanzella - Nº USP 8504181
